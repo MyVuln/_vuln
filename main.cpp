@@ -1,17 +1,40 @@
 #include "common.hpp"
 #include "IntegerOverflow.hpp"
+#include "ArbitraryIncrement.hpp"
 
 using namespace Vuln;
 
-int main() {
+template <typename T>
+struct InputModel {
+	USHORT Index;
+	char* Name;
+	const char* Description;
+};
+
+
+const InputModel<VulnBase> Models[] = {
+	{0,"IntegerDowngrade",""},
+	{1,"ArbitraryIncrement",""},
+};
+
+
+int main(int argc, char* argv[]) {
+	if (argc != 2) {
+		return -1;
+	}
+
 	char* desc = "vuln exists\n";
 	dump_hex_top(desc, strlen(desc));
 	hexdump2(desc, strlen(desc));
+	USHORT input = atoi(argv[1]);
+	if (input == 0) {
+		SendVuln(IntegerDowngrade)
+	}
+	else if (input == 1) {
+		SendVuln(ArbitraryIncrement)
+	}
+	else
+	{
 
-
-	IntegerDowngrade* intd = new IntegerDowngrade();
-	intd->Execute(NULL);
-
-	delete intd;
-
+	}
 }

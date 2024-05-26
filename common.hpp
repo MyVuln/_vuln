@@ -132,6 +132,17 @@ namespace Vuln {
 	}
 
 
+	class VulnBase
+	{
+	public:
+		VulnBase();
+		~VulnBase();
+
+	private:
+
+	};
+
+
 #define hexdump(h,s,len) Common::dump_data(h,s,len,stdout)
 #define hexdump2(s,len) Common::dump_data2(s,len,stdout)
 
@@ -139,4 +150,11 @@ namespace Vuln {
 #define dump_hex_top2(h,s,len) Common::dump_hex(h,"\n",s,len)
 
 #define EPrint(...) printf("[-] "); printf(__VA_ARGS__); printf("\n");
+#define DPrint(...) printf("[+] "); printf(__VA_ARGS__); printf("\n");
+#define IPrint(...) printf("[+] "); printf(__VA_ARGS__); printf("\n");
+
+#define SendVuln(x)\
+	x* tmp_##x = new x();\
+	tmp_##x->Execute(NULL);\
+	delete tmp_##x;
 }

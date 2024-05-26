@@ -149,6 +149,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArbitraryIncrement.hpp" />
     <ClInclude Include="common.hpp" />
     <ClInclude Include="IntegerOverflow.hpp" />
     <ClInclude Include="log.hpp" />
