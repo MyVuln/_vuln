@@ -151,6 +151,7 @@
   <ItemGroup>
     <ClInclude Include="ArbitraryIncrement.hpp" />
     <ClInclude Include="common.hpp" />
+    <ClInclude Include="DoubleFree.hpp" />
     <ClInclude Include="IntegerOverflow.hpp" />
     <ClInclude Include="log.hpp" />
   </ItemGroup>

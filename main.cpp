@@ -1,6 +1,7 @@
 #include "common.hpp"
 #include "IntegerOverflow.hpp"
 #include "ArbitraryIncrement.hpp"
+#include "DoubleFree.hpp"
 
 using namespace Vuln;
 
@@ -15,6 +16,7 @@ struct InputModel {
 const InputModel<VulnBase> Models[] = {
 	{0,"IntegerDowngrade",""},
 	{1,"ArbitraryIncrement",""},
+	{2,"DoubleFree",""},
 };
 
 
@@ -32,6 +34,9 @@ int main(int argc, char* argv[]) {
 	}
 	else if (input == 1) {
 		SendVuln(ArbitraryIncrement)
+	}
+	else if (input == 2) {
+		SendVuln(DoubleFree)
 	}
 	else
 	{
