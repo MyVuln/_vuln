@@ -153,6 +153,8 @@ namespace Vuln {
 #define DPrint(...) printf("[+] "); printf(__VA_ARGS__); printf("\n");
 #define IPrint(...) printf("[+] "); printf(__VA_ARGS__); printf("\n");
 
+#pragma warning(disable:4789)
+
 #define SendVuln(x)\
 	x* tmp_##x = new x();\
 	tmp_##x->Execute(NULL);\
