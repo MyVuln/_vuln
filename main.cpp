@@ -2,6 +2,7 @@
 #include "IntegerOverflow.hpp"
 #include "ArbitraryIncrement.hpp"
 #include "DoubleFree.hpp"
+#include "UAF.hpp"
 
 using namespace Vuln;
 
@@ -17,6 +18,7 @@ const InputModel<VulnBase> Models[] = {
 	{0,"IntegerDowngrade",""},
 	{1,"ArbitraryIncrement",""},
 	{2,"DoubleFree",""},
+	{3,"UAF",""},
 };
 
 
@@ -38,8 +40,14 @@ int main(int argc, char* argv[]) {
 	else if (input == 2) {
 		SendVuln(DoubleFree)
 	}
+	else if (input == 3) {
+		SendVuln(UAF)
+	}
 	else
 	{
-
+		for (size_t i = 0; i < ARRAYSIZE(Models); i++)
+		{
+			printf("%d %s %s\n", Models[i].Index, Models[i].Name, Models[i].Description);
+		}
 	}
 }
