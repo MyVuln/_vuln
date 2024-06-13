@@ -151,7 +151,7 @@ namespace Vuln {
 
 #define EPrint(...) printf("[-] "); printf(__VA_ARGS__); printf("\n");
 #define DPrint(...) printf("[+] "); printf(__VA_ARGS__); printf("\n");
-#define IPrint(...) printf("[+] "); printf(__VA_ARGS__); printf("\n");
+#define IPrint(...) printf("[*] "); printf(__VA_ARGS__); printf("\n");
 
 #pragma warning(disable:4789)
 
