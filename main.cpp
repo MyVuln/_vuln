@@ -3,7 +3,7 @@
 #include "ArbitraryIncrement.hpp"
 #include "DoubleFree.hpp"
 #include "UAF.hpp"
-#include "NullDereference.hpp"
+#include "NullPointerDereference.hpp"
 
 using namespace Vuln;
 
@@ -20,7 +20,7 @@ const InputModel<VulnBase> Models[] = {
 	{1,"ArbitraryIncrement",""},
 	{2,"DoubleFree",""},
 	{3,"UAF",""},
-	{4,"NullDereference",""},
+	{4,"NullPointerDereference",""},
 };
 
 
@@ -46,7 +46,7 @@ int main(int argc, char* argv[]) {
 		SendVuln(UAF)
 	}
 	else if (input == 4) {
-		SendVuln(NullDereference)
+		SendVuln(NullPointerDereference)
 	}
 	else
 	{

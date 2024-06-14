@@ -154,7 +154,7 @@
     <ClInclude Include="DoubleFree.hpp" />
     <ClInclude Include="IntegerOverflow.hpp" />
     <ClInclude Include="log.hpp" />
-    <ClInclude Include="NullDereference.hpp" />
+    <ClInclude Include="NullPointerDereference.hpp" />
     <ClInclude Include="UAF.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

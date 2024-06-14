@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef VULN_NULL_DEREFERENCE
-#define VULN_NULL_DEREFERENCE
+#ifndef VULN_NULL_POINTER_DEREFERENCE
+#define VULN_NULL_POINTER_DEREFERENCE
 #endif
 
 
@@ -10,11 +10,11 @@
 
 
 namespace Vuln {
-	class NullDereference
+	class NullPointerDereference
 	{
 	public:
-		NullDereference();
-		~NullDereference();
+		NullPointerDereference();
+		~NullPointerDereference();
 	public:
 		ERROR_T Execute(V_PARAS* args);
 
@@ -25,14 +25,14 @@ namespace Vuln {
 
 	};
 
-	NullDereference::NullDereference()
+	NullPointerDereference::NullPointerDereference()
 	{
 	}
 
-	NullDereference::~NullDereference()
+	NullPointerDereference::~NullPointerDereference()
 	{
 	}
-	ERROR_T NullDereference::Execute(V_PARAS* args) {
+	ERROR_T NullPointerDereference::Execute(V_PARAS* args) {
 		int num = -4;
 		DPrint("null pointer dereference")
 #ifdef SECURE
@@ -57,7 +57,7 @@ namespace Vuln {
 			return 0x40000001;
 	}
 
-	void NullDereference::VulnFunc(PBYTE addr) {
+	void NullPointerDereference::VulnFunc(PBYTE addr) {
 		int num = *addr;
 	}
 }
