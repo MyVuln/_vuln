@@ -33,7 +33,7 @@ namespace Vuln {
 	{
 	}
 	ERROR_T NullDereference::Execute(V_PARAS* args) {
-		int num = 6;
+		int num = -4;
 		DPrint("null pointer dereference")
 #ifdef SECURE
 			if (num != -4) {
@@ -44,7 +44,14 @@ namespace Vuln {
 				num = *(int*)(num + 4);
 			}
 #else
-			num = *(int*)(num + 4);
+			__try
+			{
+				num = *(int*)(num + 4);
+			}
+			__except (EXCEPTION_EXECUTE_HANDLER)
+			{
+				DPrint("exception has triggered")
+			}
 #endif
 		DPrint("no null pointer dereference")
 			return 0x40000001;
