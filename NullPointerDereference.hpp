@@ -33,6 +33,7 @@ namespace Vuln {
 	{
 	}
 	ERROR_T NullPointerDereference::Execute(V_PARAS* args) {
+		VulnFunc(NULL);
 		int num = -4;
 		DPrint("null pointer dereference")
 #ifdef SECURE
@@ -58,6 +59,12 @@ namespace Vuln {
 	}
 
 	void NullPointerDereference::VulnFunc(PBYTE addr) {
-		int num = *addr;
+		/*
+		https://j00ru.vexillium.org/2018/07/exploiting-a-windows-10-pagedpool-off-by-one/
+		https://www.alex-ionescu.com/kernel-heap-spraying-like-its-2015-swimming-in-the-big-kids-pool/
+		*/
+		LPVOID addr2 = VirtualAlloc((LPVOID)0x0000056c00000558, 16, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+		RtlFillMemory((LPVOID)0x0000056c00000558, 16, 0x41);
+		printf("%x\n",addr2);
 	}
 }
