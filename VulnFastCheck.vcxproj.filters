@@ -41,5 +41,11 @@
     <ClInclude Include="NullPointerDereference.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="IMemoryLeak.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="InfoDisclosure.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

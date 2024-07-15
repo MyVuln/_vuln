@@ -6,6 +6,7 @@
 
 #include <Windows.h>
 #include <stdio.h>
+#include <assert.h>
 
 typedef char gint8;
 typedef unsigned char gchar;
@@ -20,7 +21,7 @@ typedef unsigned int ERROR_T;
 
 typedef struct V_PARAS {
 	SIZE_T Count;
-
+	PVOID Address;
 }V_PARAS, * PV_PARAS;
 
 namespace Vuln {
