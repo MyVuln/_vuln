@@ -6,6 +6,7 @@
 #include "NullPointerDereference.hpp"
 #include "IMemoryLeak.hpp"
 #include "InfoDisclosure.hpp"
+#include "ArbitraryRead.hpp"
 
 using namespace Vuln;
 
@@ -24,6 +25,7 @@ const InputModel<VulnBase> Models[] = {
 	{3,"UAF",""},
 	{4,"NullPointerDereference",""},
 	{5,"InfoDisclosure","xx 5 [len]"},
+	{6,"ArbitraryRead","xx 6 [address] [len]"},
 };
 
 
@@ -66,6 +68,20 @@ int main(int argc, char* argv[]) {
 		leak->SetType(_InfoDisclosure);
 		V_PARAS* paras = (V_PARAS*)malloc(sizeof(paras));
 		paras->Address = addr;
+		paras->Count = number;
+		leak->Execute(paras);
+		leak->Dispose(paras);
+	}
+	else if (input == 6) {
+		USHORT number = atoi(argv[2]);
+		USHORT type = atoi(argv[3]);
+		IMemoryLeak* leak = new ArbitraryRead();
+		DWORD size = 64;
+		LPVOID addr = leak->Alloc(size);
+		memset(addr, 0x41, size);
+		leak->SetType(_ArbitraryRead);
+		V_PARAS* paras = (V_PARAS*)malloc(sizeof(paras));
+		paras->Address = ((ArbitraryRead*)leak)->GetMemAddress(type, addr);
 		paras->Count = number;
 		leak->Execute(paras);
 		leak->Dispose(paras);

@@ -150,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArbitraryIncrement.hpp" />
+    <ClInclude Include="ArbitraryRead.hpp" />
     <ClInclude Include="common.hpp" />
     <ClInclude Include="DoubleFree.hpp" />
     <ClInclude Include="InfoDisclosure.hpp" />
