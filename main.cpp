@@ -23,6 +23,7 @@ const InputModel<VulnBase> Models[] = {
 	{1,"ArbitraryIncrement",""},
 	{2,"DoubleFree",""},
 	{3,"UAF",""},
+	{31,"MS_T120_UAF",""},
 	{4,"NullPointerDereference",""},
 	{5,"InfoDisclosure","xx 5 [len]"},
 	{6,"ArbitraryRead","xx 6 [address] [len]"},
@@ -54,6 +55,9 @@ int main(int argc, char* argv[]) {
 	}
 	else if (input == 3) {
 		SendVuln(UAF)
+	}
+	else if (input == 31) {
+		SendVuln(MS_T120_UAF)
 	}
 	else if (input == 4) {
 		SendVuln(NullPointerDereference)
@@ -93,4 +97,6 @@ int main(int argc, char* argv[]) {
 			printf("%d %s %s\n", Models[i].Index, Models[i].Name, Models[i].Description);
 		}
 	}
+
+	DPrint("normal over")
 }

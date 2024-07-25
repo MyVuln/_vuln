@@ -24,8 +24,8 @@ namespace Vuln {
 	private:
 		void VulnFunc(V_PARAS* args) {
 #ifdef SECURE
-			if (size > 8) {
-				size = size % 9;
+			if (args->Count > 8) {
+				args->Count = args->Count % 9;
 			}
 #else
 			// nothing
