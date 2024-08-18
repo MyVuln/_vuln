@@ -119,7 +119,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <ControlFlowGuard>false</ControlFlowGuard>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -141,6 +141,8 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <ControlFlowGuard>false</ControlFlowGuard>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
+      <Optimization>Disabled</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -159,6 +161,8 @@
       <ControlFlowGuard>false</ControlFlowGuard>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <FunctionLevelLinking>false</FunctionLevelLinking>
+      <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
+      <Optimization>Disabled</Optimization>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
