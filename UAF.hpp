@@ -65,6 +65,10 @@ namespace Vuln {
 
 		DPrint("uaf end")
 	}
+
+#pragma region MS_T120_UAF
+
+
 	/// <summary>
 	/// RDP BlueKeep  MS_T120 Static Virtual Channel  MS_T120 UAF
 	/// </summary>
@@ -128,4 +132,49 @@ namespace Vuln {
 		if (addr)
 			*(PBYTE)*addr = 0x41;
 	}
+
+#pragma endregion
+
+
+#pragma region Exploitation_UAF
+	/*
+	Long time ago, came across @k0shl https://whereisk0shl.top/post/a-trick-the-story-of-cve-2024-26230
+	windows telephone service uaf in user mode and k0shl finished the exploitation because of full control on chance of releasing and using object
+	under the premise of exploitation, it seems like c++ vftable pointer hijacking thereby got a chance to local aribitrary code execution.
+	Meanwhile, I managed to design an explotitable uaf code base, so we arriave here!
+	*/
+
+	typedef struct _uaf_context {
+
+	}uaf_context, * puaf_context;
+
+	class Exp_UAF
+	{
+	public:
+		Exp_UAF();
+		~Exp_UAF();
+	public:
+		ERROR_T Execute(V_PARAS* args);
+
+	private:
+		void VulnFunc(PBYTE addr);
+	};
+
+	Exp_UAF::Exp_UAF()
+	{
+	}
+
+	Exp_UAF::~Exp_UAF()
+	{
+	}
+
+	ERROR_T Exp_UAF::Execute(V_PARAS* args) {
+		return 0x3000041;
+	}
+
+	void Exp_UAF::VulnFunc(PBYTE addr) {
+
+	}
+#pragma endregion
+
 }
