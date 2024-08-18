@@ -7,6 +7,7 @@
 #include "IMemoryLeak.hpp"
 #include "InfoDisclosure.hpp"
 #include "ArbitraryRead.hpp"
+#include "UninitializeMemory.hpp"
 
 using namespace Vuln;
 
@@ -27,6 +28,7 @@ const InputModel<VulnBase> Models[] = {
 	{4,"NullPointerDereference",""},
 	{5,"InfoDisclosure","xx 5 [len]"},
 	{6,"ArbitraryRead","xx 6 [address] [len]"},
+	{7,"UninitializeMemory",""},
 };
 
 
@@ -89,6 +91,9 @@ int main(int argc, char* argv[]) {
 		paras->Count = number;
 		leak->Execute(paras);
 		leak->Dispose(paras);
+	}
+	else if (input == 7) {
+		SendVuln(UninitializeMemory);
 	}
 	else
 	{

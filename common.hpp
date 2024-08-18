@@ -154,6 +154,8 @@ namespace Vuln {
 #define DPrint(...) printf("[+] "); printf(__VA_ARGS__); printf("\n");
 #define IPrint(...) printf("[*] "); printf(__VA_ARGS__); printf("\n");
 
+#define DebugPrint(...)	DPrint("%s %d lines\n", __FUNCTION__, __LINE__);
+
 #pragma warning(disable:4789)
 
 #define SendVuln(x)\
