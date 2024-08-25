@@ -8,23 +8,69 @@
 #include "log.hpp"
 #include "common.hpp"
 
+#define FLAG_INTEGER_OVERFLOW			0x0001
+#define FLAG_USHORT_OVERFLOW			0x0002
+
+#define INTEGER_OVERFLOW_VERSION_1		1
 
 namespace Vuln {
+	typedef struct _UNICODE_STRING {
+		USHORT Length;
+		USHORT MaximumLength;
+		PWSTR  Buffer;
+	} UNICODE_STRING, * PUNICODE_STRING;
+
+	typedef NTSTATUS(*fnRtlAppendUnicodeToString)(PUNICODE_STRING Destination,PCWSTR Source);
+	typedef void(*ExecuteInvoke)(PVOID);
+
+	typedef struct _IntegerOverflowSubCallback {
+		USHORT Flag;
+		ExecuteInvoke Execute;
+	}IntegerOverflowSubCallback, * PIntegerOverflowSubCallback;
+
+	typedef struct _IntegerOverflowContext {
+		USHORT OverflowVersion;
+		IntegerOverflowSubCallback Tables[];
+	}IntegerOverflowContext, * PIntegerOverflowContext;
+
 	class IntegerDowngrade {
 	public:
 		ERROR_T Execute(V_PARAS* args);
 
+		IntegerDowngrade();
+		~IntegerDowngrade();
+
+		IntegerOverflowContext* pctx;
+
 	private:
 		void VulnFunc(uint32 size);
+		void AppendUnicode(wchar_t* source);
 	};
+
+	IntegerDowngrade::IntegerDowngrade() {
+		pctx = (IntegerOverflowContext*)malloc(sizeof(IntegerOverflowContext));
+		pctx->OverflowVersion = INTEGER_OVERFLOW_VERSION_1;
+		pctx->Tables[0].Flag = FLAG_INTEGER_OVERFLOW;
+		// ...
+	}
+
+	IntegerDowngrade::~IntegerDowngrade(){
+		if (pctx != NULL) {
+			free(pctx);
+		}
+	}
 
 	ERROR_T IntegerDowngrade::Execute(V_PARAS* args) {
 		printf("integer downgrade execute...\n");
 
 		uint32 size = 8;
+		if(args->Flag == FLAG_INTEGER_OVERFLOW)
+			VulnFunc(size - 9);
+		if (args->Flag == FLAG_USHORT_OVERFLOW) {
+			AppendUnicode(L"aaaaaaaaaaaaaaaa");
+		}
 
-		VulnFunc(size - 9);
-
+		DPrint("normal over");
 		return 0x40000000 | 0xffff;
 	}
 	/*
@@ -58,5 +104,23 @@ namespace Vuln {
 			EPrint("error code: %d", GetExceptionCode());
 		}
 		LocalFree(buf);
+	}
+
+	void IntegerDowngrade::AppendUnicode(wchar_t* source) {
+
+		long long len = 0xfff * lstrlenW(source) + 0x40;
+		USHORT size = (USHORT)len;
+		UNICODE_STRING unicodestr = { 0 };
+		unicodestr.Buffer = (PWSTR)malloc(size);
+		memset(unicodestr.Buffer,0,size);
+		unicodestr.Length = 0;
+		unicodestr.MaximumLength = size;
+		
+		fnRtlAppendUnicodeToString fb = (fnRtlAppendUnicodeToString)GetProcAddress(GetModuleHandle(L"ntdll"), "RtlAppendUnicodeToString");
+		NTSTATUS status = fb(&unicodestr,source);
+		DPrint("RtlAppendUnicodeToString %d\n", status);
+		hexdump2(unicodestr.Buffer, size);
+		wprintf(L"%s\n", unicodestr.Buffer);
+		free(unicodestr.Buffer);
 	}
 }

@@ -22,6 +22,7 @@ typedef unsigned int ERROR_T;
 typedef struct V_PARAS {
 	SIZE_T Count;
 	PVOID Address;
+	USHORT Flag;
 }V_PARAS, * PV_PARAS;
 
 namespace Vuln {
@@ -158,8 +159,8 @@ namespace Vuln {
 
 #pragma warning(disable:4789)
 
-#define SendVuln(x)\
+#define SendVuln(x,args)\
 	x* tmp_##x = new x();\
-	tmp_##x->Execute(NULL);\
+	tmp_##x->Execute(args);\
 	delete tmp_##x;
 }

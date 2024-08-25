@@ -46,23 +46,30 @@ int main(int argc, char* argv[]) {
 	dump_hex_top(desc, strlen(desc));
 	hexdump2(desc, strlen(desc));
 	USHORT input = atoi(argv[1]);
+	int last = argc - 1;
+	USHORT flag = atoi(argv[last]);
+	V_PARAS* args = (V_PARAS*)malloc(sizeof(V_PARAS));
+	args->Address = NULL;
+	args->Count = NULL;
+	args->Flag = flag;
+
 	if (input == 0) {
-		SendVuln(IntegerDowngrade)
+		SendVuln(IntegerDowngrade, args)
 	}
 	else if (input == 1) {
-		SendVuln(ArbitraryIncrement)
+		SendVuln(ArbitraryIncrement, args)
 	}
 	else if (input == 2) {
-		SendVuln(DoubleFree)
+		SendVuln(DoubleFree, args)
 	}
 	else if (input == 3) {
-		SendVuln(UAF)
+		SendVuln(UAF, args)
 	}
 	else if (input == 31) {
-		SendVuln(MS_T120_UAF)
+		SendVuln(MS_T120_UAF, args)
 	}
 	else if (input == 4) {
-		SendVuln(NullPointerDereference)
+		SendVuln(NullPointerDereference, args)
 	}
 	else if (input == 5) {
 		USHORT number = atoi(argv[2]);
@@ -93,7 +100,7 @@ int main(int argc, char* argv[]) {
 		leak->Dispose(paras);
 	}
 	else if (input == 7) {
-		SendVuln(UninitializeMemory);
+		SendVuln(UninitializeMemory, args);
 	}
 	else
 	{
