@@ -10,6 +10,7 @@
 #include "common.hpp"
 
 #define CONTROL_DATA 0x42
+#define ALLOC_SIZE 0x80
 
 namespace Vuln {
 	class UninitializeMemory
@@ -37,14 +38,14 @@ namespace Vuln {
 	}
 
 	void UninitializeMemory::controller_heap_memory() {
-		char* buffer = (char*)malloc(64);
-		for (size_t i = 0; i < 64; i++)
+		char* buffer = (char*)malloc(ALLOC_SIZE);
+		for (size_t i = 0; i < ALLOC_SIZE; i++)
 		{
 			*buffer = CONTROL_DATA;
 			buffer++;
 		}
-		buffer = (char*)((DWORD_PTR)buffer - 64);
-		hexdump("init heap memory", buffer, 64);
+		buffer = (char*)((DWORD_PTR)buffer - ALLOC_SIZE);
+		hexdump("init heap memory", buffer, ALLOC_SIZE);
 		if (buffer) {
 			free(buffer);
 			buffer = NULL;
@@ -114,7 +115,7 @@ namespace Vuln {
 
 		*/
 		char *heapm = (char*)malloc(64);
-		hexdump("leak heap memory", heapm, 64);
+		hexdump("leak heap memory", heapm, 0x50);
 
 		hexdump("leak first addr", (void*)*(ULONGLONG*)heapm,64);
 		hexdump("leak second addr", (void*)*((ULONGLONG*)heapm++),64);
