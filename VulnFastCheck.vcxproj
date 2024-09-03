@@ -172,6 +172,7 @@
     <ClInclude Include="ArbitraryIncrement.hpp" />
     <ClInclude Include="ArbitraryRead.hpp" />
     <ClInclude Include="common.hpp" />
+    <ClInclude Include="DoubleFetch.hpp" />
     <ClInclude Include="DoubleFree.hpp" />
     <ClInclude Include="InfoDisclosure.hpp" />
     <ClInclude Include="IntegerOverflow.hpp" />

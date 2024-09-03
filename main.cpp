@@ -8,6 +8,7 @@
 #include "InfoDisclosure.hpp"
 #include "ArbitraryRead.hpp"
 #include "UninitializeMemory.hpp"
+#include "DoubleFetch.hpp"
 
 using namespace Vuln;
 
@@ -29,6 +30,7 @@ const InputModel<VulnBase> Models[] = {
 	{5,"InfoDisclosure","xx 5 [len]"},
 	{6,"ArbitraryRead","xx 6 [address] [len]"},
 	{7,"UninitializeMemory",""},
+	{8,"DoubleFetch",""},
 };
 
 
@@ -101,6 +103,9 @@ int main(int argc, char* argv[]) {
 	}
 	else if (input == 7) {
 		SendVuln(UninitializeMemory, args);
+	}
+	else if (input == 8) {
+		SendVuln(DoubleFetch, args);
 	}
 	else
 	{
