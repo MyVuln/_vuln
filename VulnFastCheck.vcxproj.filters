@@ -16,6 +16,9 @@
     <Filter Include="头文件\RaceCondition">
       <UniqueIdentifier>{9694b950-dacc-4162-87a3-6c51d3342fe0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\OutofBoundRead">
+      <UniqueIdentifier>{11ac38c5-7572-4f71-a9b2-0e6aa9ec300f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -50,14 +53,14 @@
     <ClInclude Include="InfoDisclosure.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="ArbitraryRead.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="UninitializeMemory.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="DoubleFetch.hpp">
       <Filter>头文件\RaceCondition</Filter>
+    </ClInclude>
+    <ClInclude Include="ArbitraryRead.hpp">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
