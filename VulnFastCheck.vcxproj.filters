@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="头文件\RaceCondition">
+      <UniqueIdentifier>{9694b950-dacc-4162-87a3-6c51d3342fe0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -54,7 +57,7 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="DoubleFetch.hpp">
-      <Filter>头文件</Filter>
+      <Filter>头文件\RaceCondition</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
