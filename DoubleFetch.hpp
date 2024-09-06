@@ -45,7 +45,6 @@ namespace Vuln {
 	static DWORD WINAPI ThreadProc(LPVOID lpParameter) {
 		while ((DWORD_PTR)g_double_fetch_target > 0x1000)
 		{
-			Sleep(500);
 			g_double_fetch_target =(PBYTE)0x0002;
 			printf("g_double_fectch_target %x\n", g_double_fetch_target);
 		}
@@ -60,6 +59,7 @@ namespace Vuln {
 
 #else
 		HANDLE handle = CreateThread(0, 0, ThreadProc, this, 0, 0);
+		SetThreadPriority(handle, THREAD_PRIORITY_TIME_CRITICAL);
 		CloseHandle(handle);
 		VulnFunc();
 #endif
@@ -75,8 +75,7 @@ namespace Vuln {
 
 
 			// make an enough time for changing-thread
-			Sleep(1000);
-
+			SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_BELOW_NORMAL);
 			printf("2 g_double_fectch_target check passed %x\n", g_double_fetch_target);
 
 			// 2. race condition successfully. this example will crash as free an invalid address
