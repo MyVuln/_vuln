@@ -178,6 +178,7 @@
     <ClInclude Include="IntegerOverflow.hpp" />
     <ClInclude Include="log.hpp" />
     <ClInclude Include="IMemoryLeak.hpp" />
+    <ClInclude Include="NonZeroEnd.hpp" />
     <ClInclude Include="NullPointerDereference.hpp" />
     <ClInclude Include="UAF.hpp" />
     <ClInclude Include="UninitializeMemory.hpp" />

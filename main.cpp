@@ -9,6 +9,7 @@
 #include "ArbitraryRead.hpp"
 #include "UninitializeMemory.hpp"
 #include "DoubleFetch.hpp"
+#include "NonZeroEnd.hpp"
 
 using namespace Vuln;
 
@@ -31,6 +32,7 @@ const InputModel<VulnBase> Models[] = {
 	{6,"ArbitraryRead","xx 6 [address] [len]"},
 	{7,"UninitializeMemory",""},
 	{8,"DoubleFetch",""},
+	{9,"NonZeroEnd",""},
 };
 
 
@@ -106,6 +108,9 @@ int main(int argc, char* argv[]) {
 	}
 	else if (input == 8) {
 		SendVuln(DoubleFetch, args);
+	}
+	else if (input == 9) {
+		SendVuln(NonZeroEnd,args);
 	}
 	else
 	{

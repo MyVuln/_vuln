@@ -62,5 +62,8 @@
     <ClInclude Include="ArbitraryRead.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="NonZeroEnd.hpp">
+      <Filter>头文件\OutofBoundRead</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
