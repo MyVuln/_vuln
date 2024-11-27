@@ -5,7 +5,7 @@
 #define VULN_UNINITIALIZE_MEMORY
 #endif
 
-
+#pragma once
 #include "log.hpp"
 #include "common.hpp"
 
