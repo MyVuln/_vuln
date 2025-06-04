@@ -10,6 +10,8 @@
 #include "UninitializeMemory.hpp"
 #include "DoubleFetch.hpp"
 #include "NonZeroEnd.hpp"
+#include "TypeConfustionExample.hpp"
+#include "COMFusion.hpp"
 
 using namespace Vuln;
 
@@ -33,6 +35,8 @@ const InputModel<VulnBase> Models[] = {
 	{7,"UninitializeMemory",""},
 	{8,"DoubleFetch",""},
 	{9,"NonZeroEnd",""},
+	{10,"TypeConfustionExample",""},
+	{11,"COMFusion","xx 11 [address]"},
 };
 
 
@@ -111,6 +115,15 @@ int main(int argc, char* argv[]) {
 	}
 	else if (input == 9) {
 		SendVuln(NonZeroEnd,args);
+	}
+	else if (input == 10)
+	{
+		SendVuln(TypeConfustionExample, args);
+	}
+	else if (input == 11)
+	{
+		args->Count = 0x7ffe0000;
+		SendVuln(COMFusion, args);
 	}
 	else
 	{
