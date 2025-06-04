@@ -4,6 +4,10 @@
 #define VULN_LOG
 #endif
 
+#ifndef DEBUGLOG
+#define DEBUGLOG
+#endif // !DEBUGLOG
+
 
 namespace Vuln{
 	class Log
