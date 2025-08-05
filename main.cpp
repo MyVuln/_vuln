@@ -12,8 +12,14 @@
 #include "NonZeroEnd.hpp"
 #include "TypeConfustionExample.hpp"
 #include "COMFusion.hpp"
+#include "UseVictim.hpp"
 
 using namespace Vuln;
+using namespace Vuln::OutofBoundRead;
+using namespace Vuln::OutofBoundWrite;
+using namespace Vuln::RaceCondition;
+using namespace Vuln::TypeConfusion;
+using namespace Vuln::UseAfterFree;
 
 template <typename T>
 struct InputModel {
@@ -21,7 +27,6 @@ struct InputModel {
 	char* Name;
 	const char* Description;
 };
-
 
 const InputModel<VulnBase> Models[] = {
 	{0,"IntegerDowngrade",""},
@@ -39,6 +44,19 @@ const InputModel<VulnBase> Models[] = {
 	{11,"COMFusion","xx 11 [address]"},
 };
 
+LONG WINAPI
+VectoredHandler_FormatStackFrames(
+	struct _EXCEPTION_POINTERS* ExceptionInfo
+)
+{
+	UNREFERENCED_PARAMETER(ExceptionInfo);
+	PCONTEXT Context = ExceptionInfo->ContextRecord;
+	EPrint("exception occurred!")
+	printf("rax: %p\trbx: %p\nrcx: %p\trdx: %p\t\nr8: %p\tr9: %p\nrsp: %p\trbp: %p\n", Context->Rax, Context->Rbx, Context->Rcx, Context->Rdx, Context->R8, Context->R9, Context->Rsp, Context->Rbp);
+	printf("rip: %p\n", Context->Rip);
+	Utility::PrintStackTrace();
+	return EXCEPTION_CONTINUE_SEARCH;
+}
 
 int main(int argc, char* argv[]) {
 	if (argc < 2) {
@@ -49,6 +67,7 @@ int main(int argc, char* argv[]) {
 		}
 		return -1;
 	}
+	PVOID h = AddVectoredExceptionHandler(0, VectoredHandler_FormatStackFrames);
 
 	char* desc = "vuln exists\n";
 	dump_hex_top(desc, strlen(desc));
@@ -111,6 +130,10 @@ int main(int argc, char* argv[]) {
 		SendVuln(UninitializeMemory, args);
 	}
 	else if (input == 8) {
+		args->Count = 0x10;
+		args->Address = (PVOID)0x4141414141414141;
+		args->FlagFeatures.CompilerOptimise = 1;
+		args->FlagFeatures.Reserved = 0;
 		SendVuln(DoubleFetch, args);
 	}
 	else if (input == 9) {
@@ -132,6 +155,6 @@ int main(int argc, char* argv[]) {
 			printf("%d %s %s\n", Models[i].Index, Models[i].Name, Models[i].Description);
 		}
 	}
-
+	RemoveVectoredExceptionHandler(h);
 	DPrint("normal over")
 }

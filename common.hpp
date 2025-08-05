@@ -7,6 +7,9 @@
 #include <Windows.h>
 #include <stdio.h>
 #include <assert.h>
+#include <DbgHelp.h>
+#include <iostream>
+#include <Psapi.h>
 
 typedef char gint8;
 typedef unsigned char gchar;
@@ -16,13 +19,22 @@ typedef unsigned int uint32;
 typedef unsigned long uint64;
 
 #define null 0
+#define MAX_STACK_FRAMES 62
+
+#pragma comment(lib,"dbghelp.lib")
+#pragma comment(lib, "psapi.lib")
 
 typedef unsigned int ERROR_T;
+using namespace std;
 
 typedef struct V_PARAS {
 	SIZE_T Count;
 	PVOID Address;
 	USHORT Flag;
+	struct _FlagFeatures {
+		unsigned int CompilerOptimise : 1;
+		unsigned int Reserved : 31;
+	}FlagFeatures;
 }V_PARAS, * PV_PARAS;
 
 namespace Vuln {
@@ -45,7 +57,8 @@ namespace Vuln {
 			dump_data(const char* head, const void* s, size_t len, FILE* f);
 		static void
 			dump_data2(const void* s, size_t len, FILE* f);
-
+		static int 
+			memsetw(wchar_t* buf, unsigned int val, unsigned int size);
 	private:
 
 	};
@@ -133,6 +146,34 @@ namespace Vuln {
 		dump_data(null, s, len, f);
 	}
 
+	int 
+		Common::memsetw(wchar_t* buf, unsigned int val, unsigned int size) {
+		if (val > 0xff) {
+			return 0x01;
+		}
+		if (buf == NULL || (DWORD_PTR)buf < 0x1000) {
+			return 0x02;
+		}
+
+		for (size_t i = 0; i < size; i++)
+		{
+			buf[i] = val;
+		}
+		buf[size] = 0x00;
+
+		unsigned int buf_size = 0;
+		do
+		{
+			buf_size++;
+		} while (*(WORD*)((DWORD_PTR)buf + 2 * buf_size) != 0);
+
+		if (buf_size == size) {
+			return 0x00;
+		}
+		memset(buf, 0, size);
+		return 0x04;
+	}
+
 
 	class VulnBase
 	{
@@ -143,6 +184,52 @@ namespace Vuln {
 	private:
 
 	};
+
+	class Utility {
+	public:
+		static void GetModuleNameFromAddress(void* address, char* moduleName, DWORD size);
+		static void PrintStackTrace();
+	};
+
+	void Utility::GetModuleNameFromAddress(void* address, char* moduleName, DWORD size) {
+		HMODULE hModule = NULL;
+
+		if (GetModuleHandleEx(
+			GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS |
+			GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
+			(LPCTSTR)address,
+			&hModule)) {
+
+			GetModuleBaseNameA(GetCurrentProcess(), hModule, moduleName, size);
+		}
+		else {
+			strcpy(moduleName, "Unknown");
+		}
+	}
+
+	void Utility::PrintStackTrace() {
+		void* stack[MAX_STACK_FRAMES];
+		WORD frames = CaptureStackBackTrace(0, MAX_STACK_FRAMES, stack, nullptr);
+
+		HANDLE process = GetCurrentProcess();
+		SymSetOptions(SYMOPT_UNDNAME | SYMOPT_DEFERRED_LOADS | SYMOPT_LOAD_LINES);
+		SymInitialize(process, nullptr, TRUE);
+
+		SYMBOL_INFO* symbol = (SYMBOL_INFO*)malloc(sizeof(SYMBOL_INFO) + 256 * sizeof(char));
+		symbol->MaxNameLen = 255;
+		symbol->SizeOfStruct = sizeof(SYMBOL_INFO);
+
+		for (WORD i = 0; i < frames; i++) {
+			SymFromAddr(process, (DWORD64)stack[i], nullptr, symbol);
+			char modulename[MAX_PATH];
+			GetModuleNameFromAddress(stack[i], modulename, MAX_PATH);
+			std::cout << i << ": " << modulename << "!" << symbol->Name << " (" << stack[i] << ")" << std::endl;
+		}
+
+		free(symbol);
+		SymCleanup(process);
+	}
+
 
 
 #define hexdump(h,s,len) Common::dump_data(h,s,len,stdout)

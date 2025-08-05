@@ -19,6 +19,18 @@
     <Filter Include="头文件\OutofBoundRead">
       <UniqueIdentifier>{11ac38c5-7572-4f71-a9b2-0e6aa9ec300f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\UseAfterFree">
+      <UniqueIdentifier>{257b9379-f503-45e8-b13c-bc468e64b3f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\TypeConfustion">
+      <UniqueIdentifier>{739e41f5-7529-4375-8dcb-30aa6786f551}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\UninitializeMemory">
+      <UniqueIdentifier>{19e4325b-d45e-4922-96a9-d46356ab7d8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\OutofBoundWrite">
+      <UniqueIdentifier>{0dbd9380-337d-4813-b4ea-a1be78ce9c85}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -39,9 +51,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="DoubleFree.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="UAF.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="NullPointerDereference.hpp">
@@ -65,5 +74,28 @@
     <ClInclude Include="NonZeroEnd.hpp">
       <Filter>头文件\OutofBoundRead</Filter>
     </ClInclude>
+    <ClInclude Include="CHeapFactory.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="UAF.hpp">
+      <Filter>头文件\UseAfterFree</Filter>
+    </ClInclude>
+    <ClInclude Include="Smb2ValidateSigningCapabilitiesDos.hpp">
+      <Filter>头文件\UseAfterFree</Filter>
+    </ClInclude>
+    <ClInclude Include="TypeConfustionExample.hpp">
+      <Filter>头文件\TypeConfustion</Filter>
+    </ClInclude>
+    <ClInclude Include="UseVictim.hpp">
+      <Filter>头文件\OutofBoundWrite</Filter>
+    </ClInclude>
+    <ClInclude Include="COMFusion.hpp">
+      <Filter>头文件\TypeConfustion</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="WMI_CVE_2016_0040.hpp">
+      <Filter>头文件\UninitializeMemory</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -121,9 +121,11 @@
       <ConformanceMode>false</ConformanceMode>
       <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <ControlFlowGuard>false</ControlFlowGuard>
+      <ControlFlowGuard>Guard</ControlFlowGuard>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <FunctionLevelLinking>false</FunctionLevelLinking>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <AdditionalOptions>/guard:xfg %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -171,6 +173,8 @@
   <ItemGroup>
     <ClInclude Include="ArbitraryIncrement.hpp" />
     <ClInclude Include="ArbitraryRead.hpp" />
+    <ClInclude Include="CHeapFactory.hpp" />
+    <ClInclude Include="COMFusion.hpp" />
     <ClInclude Include="common.hpp" />
     <ClInclude Include="DoubleFetch.hpp" />
     <ClInclude Include="DoubleFree.hpp" />
@@ -180,8 +184,14 @@
     <ClInclude Include="IMemoryLeak.hpp" />
     <ClInclude Include="NonZeroEnd.hpp" />
     <ClInclude Include="NullPointerDereference.hpp" />
+    <ClInclude Include="Smb2ValidateSigningCapabilitiesDos.hpp" />
     <ClInclude Include="UAF.hpp" />
     <ClInclude Include="UninitializeMemory.hpp" />
+    <ClInclude Include="TypeConfustionExample.hpp" />
+    <ClInclude Include="UseVictim.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="WMI_CVE_2016_0040.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
