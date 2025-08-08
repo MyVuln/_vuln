@@ -31,6 +31,9 @@
     <Filter Include="头文件\OutofBoundWrite">
       <UniqueIdentifier>{0dbd9380-337d-4813-b4ea-a1be78ce9c85}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\IntegerOverflow">
+      <UniqueIdentifier>{6d50023f-f1d5-4c67-9ac2-4828ec9f9ce8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -39,9 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="log.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="IntegerOverflow.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="common.hpp">
@@ -91,6 +91,12 @@
     </ClInclude>
     <ClInclude Include="COMFusion.hpp">
       <Filter>头文件\TypeConfustion</Filter>
+    </ClInclude>
+    <ClInclude Include="IntegerOverflow.hpp">
+      <Filter>头文件\IntegerOverflow</Filter>
+    </ClInclude>
+    <ClInclude Include="NumbericTrancation.hpp">
+      <Filter>头文件\IntegerOverflow</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

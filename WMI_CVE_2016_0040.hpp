@@ -69,7 +69,10 @@ void main() {
 #define ALLOC_SIZE 0x80
 
 namespace Vuln {
-    class WMI_CVE_2016_0040 {
+    namespace UninitializeMemory {
 
-    };
+        class WMI_CVE_2016_0040 {
+
+        };
+    }
 }

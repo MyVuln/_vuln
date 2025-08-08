@@ -184,6 +184,7 @@
     <ClInclude Include="IMemoryLeak.hpp" />
     <ClInclude Include="NonZeroEnd.hpp" />
     <ClInclude Include="NullPointerDereference.hpp" />
+    <ClInclude Include="NumbericTrancation.hpp" />
     <ClInclude Include="Smb2ValidateSigningCapabilitiesDos.hpp" />
     <ClInclude Include="UAF.hpp" />
     <ClInclude Include="UninitializeMemory.hpp" />

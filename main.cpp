@@ -13,6 +13,7 @@
 #include "TypeConfustionExample.hpp"
 #include "COMFusion.hpp"
 #include "UseVictim.hpp"
+#include "NumbericTrancation.hpp"
 
 using namespace Vuln;
 using namespace Vuln::OutofBoundRead;
@@ -20,6 +21,7 @@ using namespace Vuln::OutofBoundWrite;
 using namespace Vuln::RaceCondition;
 using namespace Vuln::TypeConfusion;
 using namespace Vuln::UseAfterFree;
+using namespace Vuln::IntegerOverflow;
 
 template <typename T>
 struct InputModel {
@@ -42,6 +44,7 @@ const InputModel<VulnBase> Models[] = {
 	{9,"NonZeroEnd",""},
 	{10,"TypeConfustionExample",""},
 	{11,"COMFusion","xx 11 [address]"},
+	{12,"NumbericTrancation","size"},
 };
 
 LONG WINAPI
@@ -147,6 +150,22 @@ int main(int argc, char* argv[]) {
 	{
 		args->Count = 0x7ffe0000;
 		SendVuln(COMFusion, args);
+	}
+	else if (input == 12)
+	{
+		args->Count = atoi(argv[2]);
+		args->Address = malloc(args->Count);
+		printf("count: 0x%x\naddr: %p\n", args->Count,args->Address);
+		memset(args->Address, 0x41, args->Count);
+		SendVuln(NumbericTrancation, args);
+		if (args->Address) {
+			// memory corruption
+			SIZE_T count = args->Count;
+			PVOID addr = args->Address;
+			printf("[free] count: 0x%x\naddr: %p\n", count,addr);
+			free(args->Address);
+			args->Address = NULL;
+		}
 	}
 	else
 	{
