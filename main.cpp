@@ -14,6 +14,7 @@
 #include "COMFusion.hpp"
 #include "UseVictim.hpp"
 #include "NumbericTrancation.hpp"
+#include "HeapOverflowExploitation.hpp"
 
 using namespace Vuln;
 using namespace Vuln::OutofBoundRead;
@@ -45,6 +46,7 @@ const InputModel<VulnBase> Models[] = {
 	{10,"TypeConfustionExample",""},
 	{11,"COMFusion","xx 11 [address]"},
 	{12,"NumbericTrancation","size"},
+	{13,"HeapOverflowExploitation",""},
 };
 
 LONG WINAPI
@@ -166,6 +168,9 @@ int main(int argc, char* argv[]) {
 			free(args->Address);
 			args->Address = NULL;
 		}
+	}
+	else if (input == 13) {
+		SendVuln(HeapOverflowExploitation, args)
 	}
 	else
 	{

@@ -120,7 +120,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
       <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <ControlFlowGuard>Guard</ControlFlowGuard>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <FunctionLevelLinking>false</FunctionLevelLinking>
@@ -178,6 +178,7 @@
     <ClInclude Include="common.hpp" />
     <ClInclude Include="DoubleFetch.hpp" />
     <ClInclude Include="DoubleFree.hpp" />
+    <ClInclude Include="HeapOverflowExploitation.hpp" />
     <ClInclude Include="InfoDisclosure.hpp" />
     <ClInclude Include="IntegerOverflow.hpp" />
     <ClInclude Include="log.hpp" />

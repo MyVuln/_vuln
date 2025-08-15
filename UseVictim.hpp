@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef VULN_OOBR_USEVICTIM
-#define VULN_OOBR_USEVICTIM
+#ifndef VULN_OOBW_USEVICTIM
+#define VULN_OOBW_USEVICTIM
 #endif
 
 
@@ -74,6 +74,7 @@ namespace Vuln {
 
 		ERROR_T UseVictim::SetData(void* data, int size) {
 			_obj = (oobw_obj*)malloc(sizeof(oobw_obj));
+			hexdump2(_obj, sizeof(oobw_obj));
 			if (*(int*)data != 0x43434242) {
 				DPrint("magic is valid");
 				return 0x01;

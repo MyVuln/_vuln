@@ -98,6 +98,9 @@
     <ClInclude Include="NumbericTrancation.hpp">
       <Filter>头文件\IntegerOverflow</Filter>
     </ClInclude>
+    <ClInclude Include="HeapOverflowExploitation.hpp">
+      <Filter>头文件\OutofBoundWrite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WMI_CVE_2016_0040.hpp">
